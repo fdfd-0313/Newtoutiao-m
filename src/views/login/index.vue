@@ -5,6 +5,7 @@
       class="page-nav-bar"
       title="登录"
     > </van-nav-bar>
+
     <!-- /导航栏 -->
     <!-- 登录表单 -->
     <van-form
@@ -79,29 +80,25 @@ export default {
     return {
       user: {
         mobile: '', // 手机号
-        code: '' // 验证码
+        code: ''// 验证码
       },
       userFormRules: {
-        mobile: [
-          {
-            required: true,
-            message: '手机号不能为空'
-          },
-          {
-            pattern: /^1[3|5|7|8]\d{9}$/,
-            message: '手机号格式错误'
-          }
-        ],
-        code: [
-          {
-            required: true,
-            message: '验证码不能为空'
-          },
-          {
-            pattern: /^\d{6}$/,
-            message: '验证码格式错误'
-          }
-        ]
+        mobile: [{
+          required: true,
+          message: '手机号不能为空'
+        },
+        {
+          pattern: /^1[3|5|7|8]\d{9}$/,
+          message: '手机号格式错误'
+        }],
+        code: [{
+          required: true,
+          message: '验证码不能为空'
+        },
+        {
+          pattern: /^\d{6}$/,
+          message: '验证码格式错误'
+        }]
       },
       isCountDownShow: false // 展示倒计时
     }
@@ -123,25 +120,24 @@ export default {
       this.$toast.loading({
         message: '登陆中...',
         forbidClick: true, // 禁用背景点击
-        duration: 0 // 持续时间默认两秒，如果为0持续展示
+
+        duration: 0// 持续时间默认两秒，如果为0持续展示
       })
       // 3.提交表单请求登录
       try {
-        const { data } = await login(user)
-        this.$store.commit('setUser', data.data)
+        await login(user)
         this.$toast.success('登录成功')
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('登录手机号或验证码错误')
           console.log('登录失败', err)
-        } else {
-          this.$toast.fail('登录失败，请稍后重试')
-        }
+        } else { this.$toast.fail('登录失败，请稍后重试') }
 
         // 4.根据请求响应结果处理后续操作
       }
     },
     async onSendSms () {
+      console.log('onSendms')
       // 1.校验手机号
       try {
         await this.$refs.loginForm.validate('mobile')
@@ -164,10 +160,12 @@ export default {
         }
       }
     }
+
   }
 }
+
 </script>
-<style lang="less" scoped>
+<style lang='less' scoped>
 .login-contanier {
   .Newtoutiao {
     font-size: 37px;
