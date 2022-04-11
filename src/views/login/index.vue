@@ -4,7 +4,13 @@
     <van-nav-bar
       class="page-nav-bar"
       title="登录"
-    > </van-nav-bar>
+    >
+      <van-icon
+        slot="left"
+        name="cross"
+        @click="$router.back()"
+      />
+    </van-nav-bar>
 
     <!-- /导航栏 -->
     <!-- 登录表单 -->
@@ -125,8 +131,11 @@ export default {
       })
       // 3.提交表单请求登录
       try {
-        await login(user)
+        const { data } = await login(user)
+        // 登录成功将用户数据存入到vuex容器中
+        this.$store.commit('setUser', data.data)
         this.$toast.success('登录成功')
+        this.$router.back()
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail('登录手机号或验证码错误')
