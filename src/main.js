@@ -15,6 +15,9 @@ import './style/index.less'
 // 加载动态设置Rem 基准值
 import 'amfe-flexible'
 
+// 加载 moment 初始化配置
+import './utils/moment'
+
 // 注册使用Vant组件
 Vue.use(Vant)
 
