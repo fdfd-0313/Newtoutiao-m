@@ -1,3 +1,6 @@
-// module.exports = {
-//   lintOnSave: false
-// }
+module.exports = {
+  devServer: {
+  hot: true,
+  open: true
+  }
+}
